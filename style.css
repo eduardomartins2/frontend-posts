@@ -30,9 +30,10 @@ main {
 
 .post {
     background-color: #fff;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    font-size: 1em;
 }
 
 .post h2 {
@@ -103,8 +104,8 @@ footer {
 
 .comment-form textarea {
     width: 100%;
-    padding: 10px;
-    font-size: 1em;
+    font-size: 0.9em;
+    padding: 6px;
     border-radius: 5px;
     border: 1px solid #ddd;
     resize: vertical;
@@ -114,8 +115,8 @@ footer {
   }
 
 .comment-form button {
-    padding: 10px;
-    font-size: 1em;
+    padding: 6px 8px;
+    font-size: 0.8em;
     color: #fff;
     background-color: #333;
     border: none;
@@ -125,4 +126,150 @@ footer {
 
 .comment-form button:hover {
     background-color: #555;
+}
+
+.edit-btn, .delete-btn {
+    padding: 4px 8px;            /* Bem pequenos */
+    font-size: 0.75em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.edit-btn {
+    background-color: #28a745;   /* Verde */
+}
+
+.edit-btn:hover {
+    background-color: #1e7e34;
+}
+
+.edit-tag {
+    color: #888;
+    font-size: 0.8em;
+}
+
+/* --- MODAL --- */
+
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    animation: modalShow 0.25s ease-out;
+}
+
+@keyframes modalShow {
+    from { transform: translateY(-40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close {
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+    color: #555;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+#save-edit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+}
+
+#save-edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.post-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.delete-btn {
+    padding: 8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-comment {
+    color: #d9534f;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.delete-btn:hover {
+    background-color: #b52a36;
+}
+
+.delete-comment:hover {
+    text-decoration: underline;
+}
+
+.comments {
+    font-size: 0.85em;        /* texto menor */
+    opacity: 0.8;             /* menos destaque */
+    margin-top: 10px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd; /* uma pequena linha lateral */
+}
+
+.comments p {
+    margin-bottom: 6px;
+}
+
+.post {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    font-size: 1em;
+}
+
+.post-buttons {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
 }

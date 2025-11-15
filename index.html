@@ -9,14 +9,30 @@
 </head>
 
 <body>
+    <!-- MODAL DE EDIÇÃO -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        
+        <h2>Editar Post</h2>
+
+        <label>Título</label>
+        <input type="text" id="edit-title">
+
+        <label>Conteúdo</label>
+        <textarea id="edit-content" rows="5"></textarea>
+
+        <button id="save-edit-btn" onclick="saveEdit()">Salvar</button>
+    </div>
+</div>
+
     <header>
         <h1>Posts Blog</h1>
     </header>
 
     <main>
-        
-        <!-- Formulário para criar um novo post -->
 
+        <!-- Criar novo post -->
         <section id="create-post">
             <h2>Criar Novo Post</h2>
             <form id="post-form">
@@ -26,24 +42,9 @@
             </form>
         </section>
 
-        <!-- Seção onde os posts serão carregados -->
+        <!-- Posts renderizados -->
+        <section id="posts"></section>
 
-        <section id="posts">
-            <div class="post">
-                <div class="comment-form">
-                    <textarea placeholder="Adicionar um comentário..."></textarea>
-                    <button onclick="addComment(postId, this)">Adicionar Comentário</button>
-                </div>
-
-                <!-- Área onde os comentários são exibidos -->
-
-                <div class="comments">
-
-                    <!-- Comentários carregados via JavaScript -->
-
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>

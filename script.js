@@ -1,79 +1,156 @@
-function loadPosts() {
-    fetch('http://localhost:8080/posts')
-    .then(response => {
-       console.log('Status da resposta:', response.status);
-       return response.json();
-    })
-    .then(posts => {
-       console.log('Posts recebidos:', posts);
-       const postsSection = document.getElementById('posts');
-       postsSection.innerHTML = '';
-       posts.forEach(post => {
-         const postElement = document.createElement('div');
-         postElement.className = 'post';
-         postElement.innerHTML = `
-           <h2>${post.title}</h2>
-           <p>${post.content}</p>
-           <h3>Comentários</h3>
-           <div class="comments">
-             ${post.comments.map(comment => `<p>${comment.content}</p>`).join('')}
-           </div>
-           <div class="comment-form">
-             <textarea placeholder="Adicionar comentário" rows="2"></textarea>
-             <button onclick="addComment(${post.ID}, this)">Comentar</button>
-           </div>
-         `;
-         postsSection.appendChild(postElement);
-       });
-    })
-    .catch(error => console.error('Erro ao carregar posts:', error));
-   }
+// ---------------------------
+// UTILITÁRIOS LOCALSTORAGE
+// ---------------------------
 
-function addComment(postId, button) {
-  const commentForm = button.closest('.comment-form');
-  const textarea = commentForm.querySelector('textarea');
-  const content = textarea.value.trim();
-  if (content) {
-    fetch('http://localhost:8080/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ post_id: postId, content: content })
-    })
-    .then(response => response.json())
-    .then(comment => {
-      const commentsDiv = commentForm.previousElementSibling;
-      commentsDiv.innerHTML += `<p>${comment.content}</p>`;
-      textarea.value = '';
-    })
-    .catch(error => console.error('Erro ao adicionar comentário:', error));
-  }
+function getPosts() {
+    return JSON.parse(localStorage.getItem("posts") || "[]");
 }
+
+function savePosts(posts) {
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+// ---------------------------
+// CARREGAR POSTS
+// ---------------------------
+
+function loadPosts() {
+    const postsSection = document.getElementById("posts");
+    postsSection.innerHTML = "";
+
+    const posts = getPosts();
+
+    posts.forEach((post, index) => {
+        const postElement = document.createElement("div");
+        postElement.className = "post";
+
+        postElement.innerHTML = `
+            <h2>${post.title} ${post.edited ? "<span class='edit-tag'>(editado)</span>" : ""}</h2>
+            <p>${post.content}</p>
+
+            <div class="post-buttons">
+                <button class="edit-btn" onclick="editPost(${index})">Editar</button>
+                <button class="delete-btn" onclick="deletePost(${index})">Excluir</button>
+            </div>
+
+            <h3>Comentários</h3>
+            <div class="comments">
+                ${post.comments
+                  .map((c, i) => `
+                    <p>
+                      • ${c}
+                      <span class="delete-comment" onclick="deleteComment(${index}, ${i})">Excluir</span>
+                    </p>
+                `)
+                .join("")}
+
+            </div>
+
+            <div class="comment-form">
+                <textarea placeholder="Adicionar comentário..." rows="2"></textarea>
+                <button onclick="addComment(${index}, this)">Comentar</button>
+            </div>
+        `;
+
+        postsSection.appendChild(postElement);
+    });
+}
+
+// ---------------------------
+// CRIAR POST
+// ---------------------------
 
 function createPost(event) {
     event.preventDefault();
 
-    const title = document.getElementById('post-title').value.trim();
-    const content = document.getElementById('post-content').value.trim();
+    const title = document.getElementById("post-title").value.trim();
+    const content = document.getElementById("post-content").value.trim();
 
-    if (title && content) {
-        fetch('http://localhost:8080/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title: title, content: content })
-        })
-        .then(response => response.json())
-        .then(post => {
-            loadPosts();
-            document.getElementById('post-form').reset();
-        })
-        .catch(error => console.error('Erro ao criar post:', error));
-    }
+    if (!title || !content) return;
+
+    const posts = getPosts();
+
+    posts.push({
+        title,
+        content,
+        comments: [],
+        edited: false
+    });
+
+    savePosts(posts);
+    loadPosts();
+
+    document.getElementById("post-form").reset();
 }
 
-document.getElementById('post-form').addEventListener('submit', createPost);
+document.getElementById("post-form").addEventListener("submit", createPost);
 
-document.addEventListener('DOMContentLoaded', loadPosts);
+// ---------------------------
+// ADICIONAR COMENTÁRIO
+// ---------------------------
+
+function addComment(postIndex, button) {
+    const textarea = button.closest(".comment-form").querySelector("textarea");
+    const text = textarea.value.trim();
+    if (!text) return;
+
+    const posts = getPosts();
+    posts[postIndex].comments.push(text);
+
+    savePosts(posts);
+
+    textarea.value = "";
+    loadPosts();
+}
+
+// ---------------------------
+// EDITAR POST
+// ---------------------------
+
+function editPost(index) {
+    const posts = getPosts();
+    const post = posts[index];
+
+    // Criar prompts simples
+    const newTitle = prompt("Editar título:", post.title);
+    if (newTitle === null) return;
+
+    const newContent = prompt("Editar conteúdo:", post.content);
+    if (newContent === null) return;
+
+    post.title = newTitle.trim();
+    post.content = newContent.trim();
+    post.edited = true;
+
+    savePosts(posts);
+    loadPosts();
+}
+
+// ---------------------------
+// EXCLUIR Posts
+// ---------------------------
+
+function deletePost(index) {
+    if (!confirm("Tem certeza que deseja excluir este post?")) return;
+
+    const posts = getPosts();
+    posts.splice(index, 1); // remove o post do array
+
+    savePosts(posts);
+    loadPosts();
+}
+
+// ---------------------------
+// EXCLUIR comentarios
+// ---------------------------
+function deleteComment(postIndex, commentIndex) {
+    const posts = getPosts();
+
+    posts[postIndex].comments.splice(commentIndex, 1);
+
+    savePosts(posts);
+    loadPosts();
+}
+
+
+document.addEventListener("DOMContentLoaded", loadPosts);
