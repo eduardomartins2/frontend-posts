@@ -2,47 +2,48 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts Blog</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notepad</title>
+
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
+
     <!-- MODAL DE EDIÇÃO -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        
-        <h2>Editar Post</h2>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close">&times;</span>
 
-        <label>Título</label>
-        <input type="text" id="edit-title">
+            <h2>Editar Nota</h2>
 
-        <label>Conteúdo</label>
-        <textarea id="edit-content" rows="5"></textarea>
+            <label>Título</label>
+            <input type="text" id="edit-title">
 
-        <button id="save-edit-btn" onclick="saveEdit()">Salvar</button>
+            <label>Conteúdo</label>
+            <textarea id="edit-content" rows="5"></textarea>
+
+            <button id="save-edit-btn">Salvar</button>
+        </div>
     </div>
-</div>
 
     <header>
-        <h1>Posts Blog</h1>
+        <h1>Notepad</h1>
     </header>
 
     <main>
-
-        <!-- Criar novo post -->
         <section id="create-post">
-            <h2>Criar Novo Post</h2>
+            <h2>Criar Nova Nota</h2>
+
             <form id="post-form">
-                <input type="text" id="post-title" placeholder="Título do Post" required>
-                <textarea id="post-content" placeholder="Conteúdo do Post" rows="4" required></textarea>
-                <button type="submit">Publicar</button>
+                <input type="text" id="post-title" placeholder="Título" required>
+                <textarea id="post-content" placeholder="Conteúdo" rows="4" required></textarea>
+
+                <button type="submit">Salvar</button>
             </form>
         </section>
 
-        <!-- Posts renderizados -->
         <section id="posts"></section>
 
     </main>
@@ -51,7 +52,8 @@
         <p>&copy; 2024 Eduardo Martins</p>
     </footer>
 
-    <script src="script.js"></script>
-</body>
+    <!-- Módulos JS organizados -->
+    <script type="module" src="js/script.js"></script>
 
+</body>
 </html>
