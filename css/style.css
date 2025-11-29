@@ -1,3 +1,6 @@
+/* ------------------------------
+    RESET & BASE
+------------------------------ */
 * {
     margin: 0;
     padding: 0;
@@ -5,188 +8,196 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+    font-family: "Inter", Arial, sans-serif;
+    background: #f2f2f7;
+    color: #333;
     padding: 20px;
-    background-color: #f4f4f4;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-main {
-    margin-top: 20px;
-}
-
-#posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.post {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    font-size: 1em;
-}
-
-.post h2 {
-    margin-bottom: 10px;
-}
-
-.post p {
-    margin-bottom: 10px;
-}
-
-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.8em;
-    color: #666;
-}
-
-#create-post {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    justify-content: center;
     display: flex;
-    align-items: stretch;
     flex-direction: column;
-    flex-wrap: nowrap;
+    align-items: center;
+}
+
+/* Container centralizado */
+main {
+    width: 100%;
+    max-width: 700px;
+    margin-top: 20px;
+}
+
+/* ------------------------------
+    HEADER
+------------------------------ */
+header {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    padding: 15px 0;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111;
+}
+
+/* ------------------------------
+    FORM NOVA NOTA
+------------------------------ */
+#create-post {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
 }
 
 #create-post h2 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-align: center;
+    font-size: 1.4rem;
+    color: #111;
 }
 
 #create-post form {
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 #create-post input,
 #create-post textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    text-align: center;
+    background: #fafafa;
+    font-size: 1rem;
 }
 
 #create-post button {
-    padding: 10px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #333;
+    background-color: #4CAF50;
     border: none;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 8px;
     cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: 0.2s ease;
 }
 
 #create-post button:hover {
-    background-color: #555;
+    background-color: #3d8b41;
 }
 
-.comment-form {
-    margin-top: 15px;
+/* ------------------------------
+    CARDS (NOTAS)
+------------------------------ */
+#posts {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-.comment-form textarea {
-    width: 100%;
-    font-size: 0.9em;
-    padding: 6px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    resize: vertical;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    text-align: left;
-  }
+.post {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
 
-.comment-form button {
-    padding: 6px 8px;
-    font-size: 0.8em;
+.post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.post h2 {
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+    color: #111;
+}
+
+.post p {
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+/* Botões */
+.post-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    cursor: pointer;
     color: #fff;
-    background-color: #333;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.comment-form button:hover {
-    background-color: #555;
-}
-
-.edit-btn, .delete-btn {
-    padding: 4px 8px;            /* Bem pequenos */
-    font-size: 0.75em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    color: white;
+    transition: 0.15s ease;
 }
 
 .edit-btn {
-    background-color: #28a745;   /* Verde */
+    background-color: #1976D2;
 }
 
 .edit-btn:hover {
-    background-color: #1e7e34;
+    background-color: #155fa8;
 }
 
-.edit-tag {
-    color: #888;
-    font-size: 0.8em;
+.delete-btn {
+    background-color: #E53935;
 }
 
-/* --- MODAL --- */
+.delete-btn:hover {
+    background-color: #c62828;
+}
 
+/* ------------------------------
+    COMENTÁRIOS
+------------------------------ */
+.comments {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    border-left: 3px solid #ddd;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+/* ------------------------------
+    MODAL
+------------------------------ */
 .modal {
-    display: none; 
+    display: none;
     position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.6);
+    inset: 0;
+    background: rgba(0,0,0,0.6);
     backdrop-filter: blur(3px);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 10px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
     width: 90%;
     max-width: 450px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.20);
     animation: modalShow 0.25s ease-out;
 }
 
 @keyframes modalShow {
-    from { transform: translateY(-40px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .close {
     float: right;
     font-size: 26px;
     cursor: pointer;
-    color: #555;
+    color: #444;
 }
 
 .close:hover {
@@ -196,80 +207,24 @@ footer {
 .modal-content input,
 .modal-content textarea {
     width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 6px;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    margin-top: 10px;
 }
 
 #save-edit-btn {
     width: 100%;
     padding: 12px;
-    font-size: 1em;
-    background-color: #007bff;
+    background: #4CAF50;
+    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    color: white;
+    margin-top: 15px;
 }
 
 #save-edit-btn:hover {
-    background-color: #0056b3;
-}
-
-.post-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.delete-btn {
-    padding: 8px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.delete-comment {
-    color: #d9534f;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 0.9em;
-}
-
-.delete-btn:hover {
-    background-color: #b52a36;
-}
-
-.delete-comment:hover {
-    text-decoration: underline;
-}
-
-.comments {
-    font-size: 0.85em;        /* texto menor */
-    opacity: 0.8;             /* menos destaque */
-    margin-top: 10px;
-    padding-left: 10px;
-    border-left: 2px solid #ddd; /* uma pequena linha lateral */
-}
-
-.comments p {
-    margin-bottom: 6px;
-}
-
-.post {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    font-size: 1em;
-}
-
-.post-buttons {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 8px;
+    background: #3d8b41;
 }
